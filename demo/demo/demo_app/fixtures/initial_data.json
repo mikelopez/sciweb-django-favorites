@@ -1,0 +1,26 @@
+[
+  {
+    "model": "demo_app.topic",
+    "pk": 1,
+    "fields": {
+      "name": "Topic #1",
+      "description": "Custom Description for topic #1"
+    }
+  },
+  {
+    "model": "demo_app.topic",
+    "pk": 2,
+    "fields": {
+      "name": "Topic #2",
+      "description": "Custom Description for Topic #2 "
+    }
+  },
+  {
+    "model": "demo_app.topic",
+    "pk": 3,
+    "fields": {
+      "name": "Topic #3",
+      "description": "Custom Description for Topic #3"
+    }
+  }
+]

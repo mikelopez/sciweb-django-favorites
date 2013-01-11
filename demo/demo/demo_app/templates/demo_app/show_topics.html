@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Show topics</title>
+    </head>
+    <body>
+
+        <h1>Showing Topics</h1>
+        {{topics}} - {{testdata}}
+        <ul>
+            {% for i in topics %}
+                <li> <a href="{% url 'show-topic' %}?topic={{i.id}}"> {{ i }} </a></li>
+            {% endfor %}
+        </ul>
+
+    </body>
+</html>
