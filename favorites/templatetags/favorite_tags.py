@@ -1,6 +1,6 @@
 from django import template
 from django.contrib.contenttypes.models import ContentType 
-from djano.contrib.urlresolvers import reverse
+from django.core.urlresolvers import reverse
 
 register = template.Library()
 
@@ -14,6 +14,7 @@ def get_fav(obj, user):
     except obj.DoesNotExist:
         fav = None
     return fav
+
 
 @register.filter
 def check_favorite(user, obj):

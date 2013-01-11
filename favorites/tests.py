@@ -8,6 +8,7 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 
 
 class SimpleTest(TestCase):
@@ -39,6 +40,11 @@ class SimpleTest(TestCase):
         favget = Favorites.objects.get_favorite(favitem, self.user)
         self.assertTrue(favget)
 
-        
-
+    def test_template_tag_200(self):
+        """ 
+        test for a 200 on page which includes the template tags 
+        """ 
+        response = self.client.get(reverse('index'))
+        print 'status code %s' % response.status_code
+        self.assertTrue(response.status_code == 200)
 

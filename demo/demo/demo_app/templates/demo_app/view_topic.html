@@ -3,9 +3,14 @@
         <title>Topic {{topic.name}}</title>
     </head>
     <body>
-
+        {% load favorite_tags %}
         <h1>Showing {{topic.name}}</h1>
         <a href="/">Back</a>
+
+        <br /><br />
+        {% if not user|check_favorite:topic %}
+            You have not rated this item!
+        {% endif %}
 
         <!-- favorites link templatetag here -->
 
