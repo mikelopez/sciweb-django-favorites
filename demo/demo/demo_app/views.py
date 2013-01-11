@@ -32,7 +32,7 @@ def view_topic(request):
     show a specific product and include favorited info
     todo - fix template return
     """
-    return render(request, 'demo_app/show_topics.html')
+    return render(request, 'demo_app/view_topic.html')
 
 
 

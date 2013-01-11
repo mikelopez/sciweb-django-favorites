@@ -5,10 +5,12 @@
     <body>
 
         <h1>Showing Topics</h1>
-        {{topics}} - {{testdata}}
+        
+            Select a topic and chose the favorite option if you like it
+        <hr />
         <ul>
             {% for i in topics %}
-                <li> <a href="{% url 'show-topic' %}?topic={{i.id}}"> {{ i }} </a></li>
+                <li> <a href="{% url viewtopic %}?topic={{i.id}}"> {{ i }} </a></li>
             {% endfor %}
         </ul>
 
