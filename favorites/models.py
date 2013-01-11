@@ -19,19 +19,22 @@ class FavoriteManager(models.Manager):
         Get the favorite 
         """
         content_type = ContentType.objects.get_for_model(type(obj))
-        return self.get_query_set().get(content_type=self.get_content_type(obj),
-            object_id=obj.pk, user=user)
+        try:
+            return self.get_query_set().get(content_type=self.get_content_type(obj),
+                object_id=obj.pk, user=user)
+        except:
+            return None
 
     def is_favorite(self, obj, user):
         """
         Check if its in your favs already
         """
-        return 
+        return self.get_favorite(obj, user)
 
     @classmethod
     def add_favorite(cls, user, content_object):
         """
-        class method  applied to class as whole
+        add favorite item - no duplicate
         """
         content_type = ContentType.objects.get_for_model(type(content_object))
         fav = Favorites(user=user, content_type=content_type, \
@@ -40,9 +43,11 @@ class FavoriteManager(models.Manager):
         return fav
 
 
+
 class Favorites(models.Model):
     """
-    keep track of the users' favorite object
+    keep track of the users' favorite for an object
+    user can like products, news, topics, all in one table
     """
     user = models.ForeignKey(User)
     content_type = models.ForeignKey(ContentType)

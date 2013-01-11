@@ -8,6 +8,7 @@ ChangeLog
 - Demo project context processors
 - Optional GET args handled in context processors
 - View-topic page
+- Template tags (check if favorited on object)
 
 0.1.1
 -----

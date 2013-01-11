@@ -18,15 +18,27 @@ class SimpleTest(TestCase):
         except User.DoesNotExist:
             self.user = User.objects.create(username='usernametest1')
 
-    def test_add_favorite(self):
+    def test_add_get_favorite(self):
         """
         test adding a favorite for the user on FavoriteItem
+        no duplicates for favorites!
         """
         favitem = FavoriteItem(name='Product 1')
         favitem.save()
         fav = Favorites.objects.add_favorite(self.user, favitem)
-        fav.save()
-        self.assertTrue(len(Favorites.objects.all()) > 0)
+        self.assertTrue(len(Favorites.objects.all()) == 1)
 
+        # should not duplicate
+        if not Favorites.objects.get_favorite(favitem, self.user):
+            fav_duplicate = Favorites.objects.add_favorite(self.user, favitem)
+
+        fav_len = len(Favorites.objects.all())
+        print "%s rows found " % fav_len
+        self.assertTrue(fav_len == 1)
+
+        favget = Favorites.objects.get_favorite(favitem, self.user)
+        self.assertTrue(favget)
+
+        
 
 
