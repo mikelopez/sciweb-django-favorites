@@ -18,9 +18,6 @@ class FavoriteManager(models.Manager):
         """
         Get the favorite 
         """
-        if not user.is_authenticated():
-            return False
-            
         content_type = ContentType.objects.get_for_model(type(obj))
         return self.get_query_set().get(content_type=self.get_content_type(obj),
             object_id=obj.pk, user=user)
