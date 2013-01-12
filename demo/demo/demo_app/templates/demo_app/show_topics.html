@@ -9,11 +9,19 @@
         
             Select a topic and chose the favorite option if you like it
         <hr />
-        <ul>
-            {% for i in topics %}
-                <li> <a href="{% url viewtopic %}?topic={{i.id}}"> {{ i }} </a></li>
+        <div style="float:left;"
+            <ul>
+                {% for i in topics %}
+                    <li> <a href="{% url viewtopic %}?topic={{i.id}}"> {{ i }} </a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div style="float:left;margin-left:50px;">
+            <h3>My Favorites</h3>
+            {% for fav in my_favorites %}
+                <li>User liked {{fav.name}}</li>
             {% endfor %}
-        </ul>
+        </div>
 
     </body>
 </html>

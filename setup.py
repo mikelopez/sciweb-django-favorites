@@ -5,7 +5,7 @@ setup(
     name='favorites',
     version='0.1',
     description="Basic scalable Favorites module for django",
-    long_description=open('README.md', 'r').read(),
+    long_description=open('README.rst', 'r').read(),
     keywords='python, django, favorites',
     author='Marcos Lopez',
     author_email='dev@scidentify.info',

@@ -30,9 +30,18 @@ def favorite_object(user, obj):
     generate an ad link, the ordering of args matters
     user|favorite_object:topic
     * hardcoded url until urls & views are implemented *
-    todo - handle exception
     """
     return "/favorites/add/%s/%s" % (obj.pk, ContentType.objects.get_for_model(obj).pk)
 
-
+@register.filter
+def my_favorites(user):
+    """
+    return all the users favorites
+    """
+    fav = Favorites.objects.filter(user=user)
+    favs = []
+    for i in fav:
+        ctype_name = ContentType.objects.get_for_model(obj).__name__
+        favs.append({'favorite_object': ctype_name, 'obj': i})
+    return favs
 
