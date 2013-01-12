@@ -115,7 +115,8 @@ TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
 "django.core.context_processors.static",
 "django.core.context_processors.tz",
 #"django.contrib.messages.context_processors.messages",
-"demo.demo_app.context_processors.show_data",)
+"demo.demo_app.context_processors.show_data",
+"demo.demo_app.context_processors.error_data",)
 
 INSTALLED_APPS = (
     'django.contrib.auth',

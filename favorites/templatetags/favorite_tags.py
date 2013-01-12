@@ -14,7 +14,6 @@ def get_fav(obj, user):
     return fav_obj
 
 
-
 @register.filter
 def check_favorite(user, obj):
     """
@@ -33,6 +32,7 @@ def favorite_object(user, obj):
     """
     return "/favorites/add/%s/%s" % (obj.pk, ContentType.objects.get_for_model(obj).pk)
 
+
 @register.filter
 def my_favorites(user):
     """
@@ -41,7 +41,7 @@ def my_favorites(user):
     fav = Favorites.objects.filter(user=user)
     favs = []
     for i in fav:
-        ctype_name = ContentType.objects.get_for_model(obj).__name__
-        favs.append({'favorite_object': ctype_name, 'obj': i})
+        ctype_name = ContentType.objects.get_for_model(i.content_object).name
+        favs.append({'favorite_object': ctype_name, 'obj': i.content_object})
     return favs
 

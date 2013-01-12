@@ -9,7 +9,7 @@ ChangeLog
 - Implemented add favorite for an object through template tag
 - model refactors
 - implemented urls/views for favorites app
-
+- Process error messages to the apps project via context processors
 
 
 0.1.2
@@ -18,6 +18,7 @@ ChangeLog
 - Optional GET args handled in context processors
 - View-topic page
 - Template tags (check if favorited on object)
+
 
 0.1.1
 -----

@@ -19,4 +19,18 @@ def show_data(request):
 
     return Context(data)
 
+def error_data(request):
+    """
+    check for any errors
+    """
+    data = {'errors': False, 'message': None}
+
+    if request.GET.get('result', 'n'):
+        if request.GET.get('result', 'n') == 'y':
+            data['errors'] = True
+    if request.GET.get('message', None):
+        data['message'] = request.GET.get('message', None)
+
+    return Context(data)
+
 

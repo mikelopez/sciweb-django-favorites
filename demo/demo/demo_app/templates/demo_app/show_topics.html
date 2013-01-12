@@ -18,8 +18,9 @@
         </div>
         <div style="float:left;margin-left:50px;">
             <h3>My Favorites</h3>
-            {% for fav in my_favorites %}
-                <li>User liked {{fav.name}}</li>
+
+            {% for fav in user|my_favorites %}
+                <li>User liked {{fav.favorite_object}} - {{fav.obj}}</li>
             {% endfor %}
         </div>
 

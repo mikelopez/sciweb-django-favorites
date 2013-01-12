@@ -9,7 +9,7 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-
+from templatetags.favorite_tags import my_favorites
 
 class SimpleTest(TestCase):
 
@@ -43,6 +43,10 @@ class SimpleTest(TestCase):
         favget = Favorites.objects.get_favorite(self.user, favitem)
         self.assertTrue(favget)
 
+        # test the templat tag get
+        print my_favorites(self.user)
+        self.assertTrue(my_favorites(self.user))
+
 
     def test_template_tag_200(self):
         """ 
@@ -51,4 +55,6 @@ class SimpleTest(TestCase):
         response = self.client.get(reverse('index'))
         print 'status code %s' % response.status_code
         self.assertTrue(response.status_code == 200 or response.status_code == 302)
+
+
 
