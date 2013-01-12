@@ -22,5 +22,23 @@
       "name": "Topic #3",
       "description": "Custom Description for Topic #3"
     }
-  }
+  },
+  {
+        "pk": 1,
+        "model": "auth.user",
+        "fields": {
+            "username": "admin",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": "2013-01-11T21:12:08.688Z",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$10000$v5zJxwQQytET$1K6/wTQ3vg1RNFHqeyuEpG58u9Ix9FcDT4RIDyKHD88=",
+            "email": "admin@emailadmin.com",
+            "date_joined": "2013-01-11T21:12:08.688Z"
+        }
+    }
 ]

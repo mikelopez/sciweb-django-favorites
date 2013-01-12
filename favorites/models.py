@@ -14,22 +14,6 @@ class FavoriteManager(models.Manager):
         """
         return ContentType.objects.get_for_model(type(obj))
 
-    def get_favorite(self, obj, user):
-        """
-        Get the favorite 
-        """
-        content_type = ContentType.objects.get_for_model(type(obj))
-        try:
-            return self.get_query_set().get(content_type=self.get_content_type(obj),
-                object_id=obj.pk, user=user)
-        except:
-            return None
-
-    def is_favorite(self, obj, user):
-        """
-        Check if its in your favs already
-        """
-        return self.get_favorite(obj, user)
 
     @classmethod
     def add_favorite(cls, user, content_object):

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<title>Login</title>
+
+</head>
+<body>
+    <h3>Login</h3>
+    Login with username: admin - password: admin123
+    <hr />
+        <form action="/login/" method="POST" name="loginform" id="login-form">
+                <input type="hidden" name="next" value="{{next}}"/>
+                            {% csrf_token %}
+                            
+                            {% if form.errors %}
+                                {{form.errors}}<hr />
+                            {% endif %}
+
+                           
+                <input type="text" placeholder="username" name="username" id="tags" />
+
+                              <br />
+
+                <input placeholder="Password" type="password" name="password" id="id-password" />
+
+                                
+                            <br />  
+                            <br />
+                <input type="submit" value="Login" />
+        
+                            
+                            
+        </form>
+</body>
+</html>
+
+
+
+
+
+
+

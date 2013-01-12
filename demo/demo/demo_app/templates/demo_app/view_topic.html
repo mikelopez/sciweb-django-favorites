@@ -8,8 +8,10 @@
         <a href="/">Back</a>
 
         <br /><br />
+        {{ user|check_favorite:topic }}
         {% if not user|check_favorite:topic %}
-            You have not rated this item!
+            You have not rated this item!<br />
+            <a href="{{user|favorite_object:topic}}">Add to Favorites!</a>
         {% endif %}
 
         <!-- favorites link templatetag here -->
