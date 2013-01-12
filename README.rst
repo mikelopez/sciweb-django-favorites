@@ -1,7 +1,7 @@
 Simple favorites system for django
 -----------------------------------
 
-- `` url(r'^favorites/', include('favorites.urls')),`` to your project urls
+- Add ``url(r'^favorites/', include('favorites.urls')),`` to your project urls
 - Add ``"demo.demo_app.context_processors.show_data",`` to your ``TEMPLATE_CONTEXT_PROCESSORS``
 - Add ``favorites`` to your ``INSTALLED_APPS`` in your settings.py file
 
