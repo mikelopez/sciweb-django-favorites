@@ -9,7 +9,13 @@
         
             Select a topic and chose the favorite option if you like it
         <hr />
-        <div style="float:left;"
+        
+            Result: {{ result }}<br />
+            Error: {{ errors }}<br />
+            Message: {{ message }}<br />
+
+        
+        <div style="float:left;">
             <ul>
                 {% for i in topics %}
                     <li> <a href="{% url viewtopic %}?topic={{i.id}}"> {{ i }} </a></li>

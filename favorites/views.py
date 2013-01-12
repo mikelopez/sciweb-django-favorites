@@ -20,6 +20,26 @@ from decimal import Decimal
 import logging
 logger = logging.getLogger('favorites.views')
 
+def return_url(request, result):
+    """
+    generate the return url with the required error params
+    used privately
+    """
+    return_url = request.REQUEST.get('next') or \
+        request.META.get('HTTP_REFERER', '/')
+
+    if not result:
+        if '?' in return_url:
+            return_url += '&result=error&message=Could not add favorite'
+        else:
+            return_url += '?result=error&message=Could not add favorite'
+    else:
+        if '?' in return_url:
+            return_url += '&result=ok&message=Added to favorites'
+        else:
+            return_url += '?result=ok&message=Added to favorites'
+
+
 @login_required
 def add_favorite(request, item, model_pk):
     """
@@ -28,6 +48,7 @@ def add_favorite(request, item, model_pk):
     if not request.user.is_authenticated():
         return HttpResponseRedirec('/login')
 
+    fav = None
     ctype = get_object_or_404(ContentType, pk=model_pk)
     model_class = ctype.model_class()
     obj = get_object_or_404(model_class, pk=item)
@@ -35,8 +56,8 @@ def add_favorite(request, item, model_pk):
     if not Favorites.objects.get_favorite(request.user, obj):
         fav = Favorites.objects.add_favorite(request.user, obj)
     
-    return HttpResponseRedirect(request.REQUEST.get('next') or \
-        request.META.get('HTTP_REFERER', '/'))
+    returnurl = return_url(request, fav)
+    return HttpResponseRedirect("%s" % (returnurl))
 
 
 @login_required

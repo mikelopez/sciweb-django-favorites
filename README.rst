@@ -15,3 +15,12 @@ Template use
 - Check if favorited: ``{{ user|check_favorite:topic }}`` You can throw conditions against this.
 - Favorite an object: ``{{ user|favorite_object:topic }}`` This will generate a link to the add page (add ?json=True to return JSON)
 
+
+Errors on template
+------------------
+to bring out any errors or results on your templates, you can use the variables: 
+- errors: return a boolean if it contains any errors on adding/deleting
+- message: the message response
+- result: return string ok / error
+
+

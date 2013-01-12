@@ -23,11 +23,15 @@ def error_data(request):
     """
     check for any errors
     """
-    data = {'errors': False, 'message': None}
+    data = {'errors': False, 'message': None, 'result': 'ok'}
 
-    if request.GET.get('result', 'n'):
-        if request.GET.get('result', 'n') == 'y':
+    if request.GET.get('error', 'n'):
+        if request.GET.get('error', 'n') == 'y':
+            data['result'] = 'error'
             data['errors'] = True
+
+    data['result'] = request.GET.get('result', 'ok')
+
     if request.GET.get('message', None):
         data['message'] = request.GET.get('message', None)
 

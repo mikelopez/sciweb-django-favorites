@@ -5,7 +5,11 @@
     <body>
         {% load favorite_tags %}
         <h1>Showing {{topic.name}}</h1>
-        <a href="/">Back</a>
+        <a href="/">Back</a><br /><br />
+
+        Result: {{ result }}<br />
+        Error: {{ errors }}<br />
+        Message: {{ message }}<br />
 
         <br /><br />
 
