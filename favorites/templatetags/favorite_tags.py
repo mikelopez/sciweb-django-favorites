@@ -28,9 +28,17 @@ def favorite_object(user, obj):
     """
     generate an ad link, the ordering of args matters
     user|favorite_object:topic
-    * hardcoded url until urls & views are implemented *
     """
     return "/favorites/add/%s/%s" % (obj.pk, ContentType.objects.get_for_model(obj).pk)
+
+
+@register.filter
+def unfavorite_object(user, obj):
+    """
+    generate an ad link, the ordering of args matters
+    user|favorite_object:topic
+    """
+    return "/favorites/remove/%s/%s" % (obj.pk, ContentType.objects.get_for_model(obj).pk)
 
 
 @register.filter

@@ -38,6 +38,17 @@ class FavoriteManager(models.Manager):
         fav.save()
         return fav
 
+    @classmethod
+    def delete_favorite(cls, user, content_object):
+        """
+        add favorite item - no duplicate
+        """
+        content_type = ContentType.objects.get_for_model(type(content_object))
+        fav = Favorites.objects.get_favorite(user=user, content_type=content_type, \
+            content_object=content_object, object_id=content_object.pk)
+        fav.delete()
+        return fav
+
 
 
 class Favorites(models.Model):

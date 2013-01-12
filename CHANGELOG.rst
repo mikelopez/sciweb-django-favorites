@@ -10,6 +10,7 @@ ChangeLog
 - model refactors
 - implemented urls/views for favorites app
 - Process error messages to the apps project via context processors
+- JSON return for add / remove pages post
 
 
 0.1.2

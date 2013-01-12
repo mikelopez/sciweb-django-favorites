@@ -12,9 +12,11 @@ urlpatterns = patterns('',
     url(r'^logout/', logout,{'template_name': 'registration/logout.html'}),
 
     url(r'^show/$', 'demo.demo_app.views.view_topic', name='viewtopic'),
+    url(r'^favorites/', include('favorites.urls')),
+
     url(r'^$', 'demo.demo_app.views.show_topics', name='index'),
 
     
-    url(r'^favorites/', include('favorites.urls')),
+    
 
 )

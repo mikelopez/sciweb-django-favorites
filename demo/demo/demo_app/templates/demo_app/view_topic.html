@@ -14,8 +14,11 @@
         <br /><br />
 
         {% if not user|check_favorite:topic %}
-            You have not rated this item!<br />
-            <a href="{{user|favorite_object:topic}}">Add to Favorites!</a>
+            You have not liked this item!<br />
+            <a href="{{user|favorite_object:topic}}">Add to Favorites</a>
+        {% else %}
+            You like this!<br />
+            <a href="{{user|unfavorite_object:topic}}">Remove from Favorites</a>
         {% endif %}
 
         <!-- favorites link templatetag here -->
