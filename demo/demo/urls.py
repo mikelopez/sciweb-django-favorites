@@ -14,9 +14,7 @@ urlpatterns = patterns('',
     url(r'^show/$', 'demo.demo_app.views.view_topic', name='viewtopic'),
     url(r'^$', 'demo.demo_app.views.show_topics', name='index'),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    
+    url(r'^favorites/', include('favorites.urls')),
 
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
 )

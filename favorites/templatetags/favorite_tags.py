@@ -1,6 +1,7 @@
 from django import template
 from django.contrib.contenttypes.models import ContentType 
 from django.core.urlresolvers import reverse
+from favorites.models import Favorites
 
 register = template.Library()
 
@@ -9,12 +10,9 @@ def get_fav(obj, user):
     """
     get the favorite on an object (obj) for a user (user)
     """
-    content_type = ContentType.objects.get_for_model(type(obj))
-    try:
-        return obj.get(content_type=self.get_content_type(obj),
-            object_id=obj.pk, user=user)
-    except:
-        return None
+    fav_obj = Favorites.objects.get_favorite(user, obj)
+    return fav_obj
+
 
 
 @register.filter
@@ -34,7 +32,7 @@ def favorite_object(user, obj):
     * hardcoded url until urls & views are implemented *
     todo - handle exception
     """
-    return "/favorites/add/%s" % (obj.pk)
+    return "/favorites/add/%s/%s" % (obj.pk, ContentType.objects.get_for_model(obj).pk)
 
 
 

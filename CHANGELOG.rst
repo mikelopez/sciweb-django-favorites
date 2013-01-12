@@ -3,6 +3,15 @@
 ChangeLog
 =========
 
+
+0.1.3
+------
+- Implemented add favorite for an object through template tag
+- model refactors
+- implemented urls/views for favorites app
+
+
+
 0.1.2
 ------
 - Demo project context processors
