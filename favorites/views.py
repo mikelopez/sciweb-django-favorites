@@ -56,7 +56,7 @@ def add_favorite(request, item, model_pk):
     return http response or an ajax json response
     """
     if not request.user.is_authenticated():
-        return HttpResponseRedirec('/login')
+        return HttpResponseRedirect('/login')
 
     obj = get_model_object(request, model_pk, item)
     fav = Favorites.objects.get_favorite(request.user, obj)
@@ -77,7 +77,7 @@ def remove_favorite(request, item, model_pk):
     return http response or ajax json response
     """
     if not request.user.is_authenticated():
-        return HttpResponseRedirec('/login')
+        return HttpResponseRedirect('/login')
 
     obj = get_model_object(request, model_pk, item)
     fav = Favorites.objects.get_favorite(request.user, obj)
