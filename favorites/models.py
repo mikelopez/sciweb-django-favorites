@@ -70,7 +70,10 @@ class FavoriteManager(models.Manager):
         user and object - checking if the object is favorited
         or not which will return the proper html link 
         """
-        return self.get_favorite(user, obj)
+        if self.get_favorite(user, obj):
+            return self.get_unfav_link(obj)
+        else:
+            return self.get_fav_link(obj)
 
 
 
