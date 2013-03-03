@@ -49,6 +49,30 @@ class FavoriteManager(models.Manager):
         fav.delete()
         return fav
 
+    @classmethod
+    def get_fav_link(self, obj):
+        """
+        Generate the favorite
+        """
+        return "/favorites/add/%s/%s" % (obj.pk, ContentType.objects.get_for_model(obj).pk)
+
+    @classmethod
+    def get_unfav_link(self, obj):
+        """
+        Remove the favorite
+        """
+        return "/favorites/remove/%s/%s" % (obj.pk, ContentType.objects.get_for_model(obj).pk)
+
+    @classmethod
+    def generate_fav_html_link(self, user, obj):
+        """
+        Generat ethe html favorite link based on the 
+        user and object - checking if the object is favorited
+        or not which will return the proper html link 
+        """
+        return self.get_favorite(user, obj)
+
+
 
 
 class Favorites(models.Model):
@@ -62,6 +86,7 @@ class Favorites(models.Model):
     content_object = generic.GenericForeignKey('content_type', 'object_id')
     created = models.DateTimeField(default=datetime.now())
     objects = FavoriteManager()
+
 
 
 class FavoriteItem(models.Model):
