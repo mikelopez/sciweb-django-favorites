@@ -87,7 +87,7 @@ def remove_favorite(request, item, model_pk):
 
     returnurl, jsondata = return_url(request, fav)
     if request.is_ajax():
-        return HttpResponse(simplejson.dumps(), mimetype="application/json")
+        return HttpResponse(simplejson.dumps(jsondata), mimetype="application/json")
     return HttpResponseRedirect("%s" % (returnurl))
 
 
