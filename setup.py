@@ -3,7 +3,7 @@ import sys, os
 
 setup(
     name='favorites',
-    version='0.1',
+    version='0.2',
     description="Basic scalable Favorites module for django",
     long_description=open('README.rst', 'r').read(),
     keywords='python, django, favorites',
