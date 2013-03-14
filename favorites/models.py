@@ -26,17 +26,25 @@ class FavoriteManager(models.Manager):
             return fav
         except Favorites.DoesNotExist:
             return None
+        except Favorites.MultipleObjectsReturned:
+            # shouldnt do this but just incase
+            try:
+                return Favorites.objects.filter(user=user, content_type=content_type)[0]
+            except IndexError:
+                return None
 
     @classmethod
     def add_favorite(cls, user, content_object):
         """
         add favorite item - no duplicate
         """
-        content_type = ContentType.objects.get_for_model(type(content_object))
-        fav = Favorites(user=user, content_type=content_type, \
-            content_object=content_object, object_id=content_object.pk)
-        fav.save()
-        return fav
+        if not cls.get_favorite(user, content_object):
+            content_type = ContentType.objects.get_for_model(type(content_object))
+            fav = Favorites(user=user, content_type=content_type, \
+                content_object=content_object, object_id=content_object.pk)
+            fav.save()
+            return fav
+        return None
 
     @classmethod
     def delete_favorite(cls, user, content_object):
