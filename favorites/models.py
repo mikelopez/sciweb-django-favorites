@@ -36,7 +36,7 @@ class FavoriteManager(models.Manager):
     @classmethod
     def add_favorite(cls, user, content_object):
         """
-        add favorite item - no duplicate
+        Add favorite item - no duplicate
         """
         if not cls.get_favorite(user, content_object):
             content_type = ContentType.objects.get_for_model(type(content_object))
@@ -47,15 +47,18 @@ class FavoriteManager(models.Manager):
         return None
 
     @classmethod
-    def delete_favorite(cls, user, content_object):
+    def delete_favorite(cls, content_object, user=None):
         """
-        add favorite item - no duplicate
+        Add favorite item - no duplicate
+        If no user is passed, delete this fav instance from all users
         """
         content_type = ContentType.objects.get_for_model(type(content_object))
-        fav = Favorites.objects.get_favorite(user=user, content_type=content_type, \
-            content_object=content_object, object_id=content_object.pk)
-        fav.delete()
-        return fav
+        filters = {'content_type': content_type, 'object_id': content_object.pk}
+        if user:
+            filters['user'] = user       
+        for fav in Favorites.objects.filter(**filters):
+            fav.delete()
+        return True
 
     @classmethod
     def get_fav_link(self, obj):
