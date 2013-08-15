@@ -59,7 +59,7 @@ class SimpleTest(TestCase):
         test for a 200 on page which includes the template tags 
         """ 
         response = self.client.get(reverse('index'))
-        print 'status code %s' % response.status_code
+        termprint("INFO", 'status code %s' % response.status_code)
         self.assertTrue(response.status_code == 200 or response.status_code == 302)
 
 
