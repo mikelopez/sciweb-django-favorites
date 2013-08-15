@@ -1,11 +1,17 @@
-from models import Favorites, FavoriteItem
-from django.contrib.auth.models import User
 """
 This file demonstrates writing tests using the unittest module. These will pass
 when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
+
+from models import Favorites, FavoriteItem
+from django.contrib.auth.models import User
+try:
+    from termprint import *
+except ImportError:
+    def termprint(log, data):
+        print "%s:: %s" % (log, data)
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
@@ -33,18 +39,18 @@ class SimpleTest(TestCase):
 
         # should not duplicate
         if not Favorites.objects.get_favorite(self.user, favitem):
-            print 'Not found....adding'
+            termprint("WARNING", 'Not found....adding')
             fav_duplicate = Favorites.objects.add_favorite(self.user, favitem)
 
         fav_len = len(Favorites.objects.all())
-        print "%s rows found " % fav_len
+        termprint("INFO", "%s rows found " % fav_len)
         self.assertTrue(fav_len == 1)
 
         favget = Favorites.objects.get_favorite(self.user, favitem)
         self.assertTrue(favget)
 
         # test the templat tag get
-        print my_favorites(self.user)
+        termprint("INFO", my_favorites(self.user))
         self.assertTrue(my_favorites(self.user))
 
 
