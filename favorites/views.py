@@ -55,11 +55,21 @@ def return_url(request, result, params=None):
 
 
 def get_model_object(request, content_type_pk, item_pk):
-    """Gets the content type object """
-    ctype = get_object_or_404(ContentType, pk=content_type_pk)
-    model_class = ctype.model_class()
-    obj = get_object_or_404(model_class, pk=item_pk)
-    return obj
+    """First gets the content_type object, and gets the model_class
+    to then search by item_pk to get the model_class instance
+    of the favorite object if any."""
+    try:
+        ctpye = ContentType.objects.get(pk=content_type_pk)
+        #ctype = get_object_or_404(ContentType, pk=content_type_pk)
+    except ContentType.DoesNotExist:
+        return False
+    try:
+        model_class = ctype.model_class()
+        #fav_item = get_object_or_404(model_class, pk=item_pk)
+        fav_item = model_class.objects.get(pk=item_pk)
+    except model_class.DoesNotExist:
+        return False
+    return fav_item
 
 
 @login_required
