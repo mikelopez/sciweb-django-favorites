@@ -79,23 +79,21 @@ def add_favorite(request, item_pk, content_type_pk):
     """
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login')
-
+    jsondata = {}
     # get the fav object - add if it doesnt exist already
     fav_item = get_model_object(request, content_type_pk, item_pk)
-    fav = Favorites.objects.get_favorite(request.user, fav_item)
-    if not fav:
+    if fav_item:
         # add if not exist
         fav = Favorites.objects.add_favorite(request.user, fav_item) 
-
-    # get the redirect-url and json data
-    returnurl, jsondata = return_url(request, fav)
+        # get the redirect-url and json data
+        returnurl, jsondata = return_url(request, fav)
     if request.is_ajax():
         return HttpResponse(simplejson.dumps(jsondata), mimetype="application/json")
     return HttpResponseRedirect("%s" % (returnurl))
 
 
 @login_required
-def remove_favorite(request, item, model_pk):
+def remove_favorite(request, item_pk, content_type_pk):
     """ Remove a favorite for an object to a user.
     Return http response or ajax json response.
     """
@@ -103,15 +101,17 @@ def remove_favorite(request, item, model_pk):
         return HttpResponseRedirect('/login')
 
     # get the object and delete it 
-    obj = get_model_object(request, model_pk, item)
-    fav = Favorites.objects.get_favorite(request.user, obj)
-    if fav:
-        # delete the object
-        fav.delete()
+    jsondata = {}
+    fav_item = get_model_object(request, content_type_pk, item_pk)
+    if fav_item:
+        fav = Favorites.objects.get_favorite(request.user, obj)
+        if fav:
+            # delete the object
+            fav.delete()
 
-    # set messages to override the default and get redirect-url / json data
-    params = {'message': 'Removed from favorites'}
-    returnurl, jsondata = return_url(request, fav, params=params)
+        # set messages to override the default and get redirect-url / json data
+        params = {'message': 'Removed from favorites'}
+        returnurl, jsondata = return_url(request, fav, params=params)
     if request.is_ajax():
         return HttpResponse(simplejson.dumps(jsondata), mimetype="application/json")
     return HttpResponseRedirect("%s" % (returnurl))

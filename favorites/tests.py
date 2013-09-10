@@ -35,7 +35,8 @@ class SimpleTest(TestCase):
         self.assertFalse(Favorites.objects.get_favorite(self.user, favitem))
 
         fav = Favorites.objects.add_favorite(self.user, favitem)
-        self.assertTrue(len(Favorites.objects.all()) == 1)
+        fav_len = len(Favorites.objects.all())
+        self.assertTrue(len(fav_len) == 1)
 
         # should not duplicate
         if not Favorites.objects.get_favorite(self.user, favitem):
