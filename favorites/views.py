@@ -25,7 +25,9 @@ def return_url(request, result, params=None):
     """ The return URL is where the user is taken if the
     request (add-fav / remove-fav) was made via post or any other non ajax.
     Generate the return url with any get params.
+    
     Used privately via add_favorite / remove_favorite
+    
     Parameters params: Send a dict with any key(s) you would want
     to replace from default_params. Any keys that are not passed
     but available in default_params will be set 
@@ -61,7 +63,7 @@ def get_model_object(request, model_pk, item_pk):
 
 
 @login_required
-def add_favorite(request, item, model_pk):
+def add_favorite(request, item_pk, model_pk):
     """ Add a favorite for an object to a user.
     Return http response or an ajax json response.
     """
@@ -69,7 +71,7 @@ def add_favorite(request, item, model_pk):
         return HttpResponseRedirect('/login')
 
     # get the fav object - add if it doesnt exist already
-    obj = get_model_object(request, model_pk, item)
+    obj = get_model_object(request, model_pk, item_pk)
     fav = Favorites.objects.get_favorite(request.user, obj)
     if not fav:
         # add if not exist
