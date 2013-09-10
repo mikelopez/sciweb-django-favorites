@@ -54,16 +54,16 @@ def return_url(request, result, params=None):
     return return_url, params
 
 
-def get_model_object(request, model_pk, item_pk):
-    """ Get the model object from ContentType pk """
-    ctype = get_object_or_404(ContentType, pk=model_pk)
+def get_model_object(request, content_type_pk, item_pk):
+    """Gets the content type object """
+    ctype = get_object_or_404(ContentType, pk=content_type_pk)
     model_class = ctype.model_class()
     obj = get_object_or_404(model_class, pk=item_pk)
     return obj
 
 
 @login_required
-def add_favorite(request, item_pk, model_pk):
+def add_favorite(request, item_pk, content_type_pk):
     """ Add a favorite for an object to a user.
     Return http response or an ajax json response.
     """
@@ -71,7 +71,7 @@ def add_favorite(request, item_pk, model_pk):
         return HttpResponseRedirect('/login')
 
     # get the fav object - add if it doesnt exist already
-    obj = get_model_object(request, model_pk, item_pk)
+    obj = get_model_object(request, content_type_pk, item_pk)
     fav = Favorites.objects.get_favorite(request.user, obj)
     if not fav:
         # add if not exist
