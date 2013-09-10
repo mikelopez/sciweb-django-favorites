@@ -71,11 +71,11 @@ def add_favorite(request, item_pk, content_type_pk):
         return HttpResponseRedirect('/login')
 
     # get the fav object - add if it doesnt exist already
-    obj = get_model_object(request, content_type_pk, item_pk)
-    fav = Favorites.objects.get_favorite(request.user, obj)
+    fav_item = get_model_object(request, content_type_pk, item_pk)
+    fav = Favorites.objects.get_favorite(request.user, fav_item)
     if not fav:
         # add if not exist
-        fav = Favorites.objects.add_favorite(request.user, obj) 
+        fav = Favorites.objects.add_favorite(request.user, fav_item) 
 
     # get the redirect-url and json data
     returnurl, jsondata = return_url(request, fav)
