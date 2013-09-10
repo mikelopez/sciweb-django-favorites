@@ -17,7 +17,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from templatetags.favorite_tags import my_favorites
 
-class SimpleTest(TestCase):
+class FavoritesTest(TestCase):
 
     def setUp(self):
         try:
