@@ -75,7 +75,7 @@ class FavoritesTest(TestCase):
         self.assertTrue(fav_len == 0)
 
         termprint("INFO", my_favorites(self.user))
-        self.assertTrue(my_favorites(self.user))
+        self.assertFalse(my_favorites(self.user))
 
 
 

@@ -47,7 +47,7 @@ class FavoriteManager(models.Manager):
         return None
 
     @classmethod
-    def delete_favorite(cls, content_object, user=None):
+    def delete_favorite(cls, user, content_object):
         """
         Add favorite item - no duplicate
         If no user is passed, delete this fav instance from all users
