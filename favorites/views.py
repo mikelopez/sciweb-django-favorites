@@ -59,17 +59,18 @@ def get_model_object(request, content_type_pk, item_pk):
     to then search by item_pk to get the model_class instance
     of the favorite object if any."""
     try:
-        ctpye = ContentType.objects.get(pk=content_type_pk)
-        #ctype = get_object_or_404(ContentType, pk=content_type_pk)
+        ctype = ContentType.objects.get(pk=content_type_pk)
+        model_class = ctype.model_class()
+        try:
+            #fav_item = get_object_or_404(model_class, pk=item_pk)
+            fav_item = model_class.objects.get(pk=item_pk)
+        except model_class.DoesNotExist:
+            return False
+        return fav_item
+            #ctype = get_object_or_404(ContentType, pk=content_type_pk)
     except ContentType.DoesNotExist:
         return False
-    try:
-        model_class = ctype.model_class()
-        #fav_item = get_object_or_404(model_class, pk=item_pk)
-        fav_item = model_class.objects.get(pk=item_pk)
-    except model_class.DoesNotExist:
-        return False
-    return fav_item
+    
 
 
 @login_required
@@ -104,7 +105,7 @@ def remove_favorite(request, item_pk, content_type_pk):
     jsondata = {}
     fav_item = get_model_object(request, content_type_pk, item_pk)
     if fav_item:
-        fav = Favorites.objects.get_favorite(request.user, obj)
+        fav = Favorites.objects.get_favorite(request.user, fav_item)
         if fav:
             # delete the object
             fav.delete()
@@ -115,6 +116,17 @@ def remove_favorite(request, item_pk, content_type_pk):
     if request.is_ajax():
         return HttpResponse(simplejson.dumps(jsondata), mimetype="application/json")
     return HttpResponseRedirect("%s" % (returnurl))
+
+@login_required
+def in_favorites(request, object_id, content_type):
+    """Checks if it is in favorites."""
+    fav_item = get_model_object(request, content_type, object_id)
+    fav = Favorites.objects.get_favorite(request.user, fav_item)
+    if fav:
+        data = {"in_favorites": True}
+    else:
+        data = {"in_favorites": False}
+    return HttpResponse(simplejson.dumps(data), mimetype="application/json")
 
 
 

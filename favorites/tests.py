@@ -4,7 +4,9 @@ when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
-
+import simplejson
+from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.models import ContentType
 from models import Favorites, FavoriteItem
 from django.contrib.auth.models import User
 try:
@@ -13,27 +15,34 @@ except ImportError:
     def termprint(log, data):
         print "%s:: %s" % (log, data)
 
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 from templatetags.favorite_tags import my_favorites
 
 class FavoritesTest(TestCase):
 
     def setUp(self):
-        self.user = User.objects.get_or_create(username='usertest1')
+        self.user, created = User.objects.get_or_create(username='usertest1')
         self.user.set_password('test123')
         self.user.save()
-        
+
        
-    def test_ajax_favorite_status(self):
-        """Tests ajax url to check on item favorited stats"""
+    def test_ajax_urls(self):
+        """
+        Tests ajax url to check on item favorited stats.
+        Checks is_favorited, add, remove.
+        """
         # first create a sample item to be favorited
         favitem = FavoriteItem(name='Product 1')
         favitem.save()
+        ctype = ContentType.objects.get_for_model(type(favitem)).pk
         client = Client()
-        client.login(username=self.user.username, 'test123')
-        response = client.get(reverse('in_favorites', kwargs={'content_type': ctype,
-                                                              'object_id': objectid}))
+        client.login(username=self.user.username, password='test123')
+        response = client.get(reverse('in_favs', kwargs={'content_type': ctype,
+                                                         'object_id': favitem.pk}))
+        termprint("INFO", response)
+        self.assertFalse(response.get('in_favorites'))
+
 
     def test_add_get_favorite(self):
         """
