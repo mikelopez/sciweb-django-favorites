@@ -7,7 +7,7 @@ settings.configure(DEBUG=True,
                         'ENGINE': 'django.db.backends.sqlite3',
                     }
                 },
-               ROOT_URLCONF='myapp.urls',
+               ROOT_URLCONF='favorites.urls',
                INSTALLED_APPS=('django.contrib.auth',
                               'django.contrib.contenttypes',
                               'django.contrib.sessions',

@@ -36,7 +36,7 @@ class FavoritesTest(TestCase):
 
         fav = Favorites.objects.add_favorite(self.user, favitem)
         fav_len = len(Favorites.objects.all())
-        self.assertTrue(len(fav_len) == 1)
+        self.assertTrue(fav_len == 1)
 
         # should not duplicate
         if not Favorites.objects.get_favorite(self.user, favitem):
@@ -54,14 +54,6 @@ class FavoritesTest(TestCase):
         termprint("INFO", my_favorites(self.user))
         self.assertTrue(my_favorites(self.user))
 
-
-    def test_template_tag_200(self):
-        """ 
-        test for a 200 on page which includes the template tags 
-        """ 
-        response = self.client.get(reverse('index'))
-        termprint("INFO", 'status code %s' % response.status_code)
-        self.assertTrue(response.status_code == 200 or response.status_code == 302)
 
 
 
