@@ -20,10 +20,20 @@ from templatetags.favorite_tags import my_favorites
 class FavoritesTest(TestCase):
 
     def setUp(self):
-        try:
-            self.user = User.objects.get(username='usertest1')
-        except User.DoesNotExist:
-            self.user = User.objects.create(username='usernametest1')
+        self.user = User.objects.get_or_create(username='usertest1')
+        self.user.set_password('test123')
+        self.user.save()
+        
+       
+    def test_ajax_favorite_status(self):
+        """Tests ajax url to check on item favorited stats"""
+        # first create a sample item to be favorited
+        favitem = FavoriteItem(name='Product 1')
+        favitem.save()
+        client = Client()
+        client.login(username=self.user.username, 'test123')
+        response = client.get(reverse('in_favorites', kwargs={'content_type': ctype,
+                                                              'object_id': objectid}))
 
     def test_add_get_favorite(self):
         """
