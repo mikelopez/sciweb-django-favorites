@@ -117,6 +117,7 @@ def remove_favorite(request, item_pk, content_type_pk):
         return HttpResponse(simplejson.dumps(jsondata), mimetype="application/json")
     return HttpResponseRedirect("%s" % (returnurl))
 
+
 @login_required
 def in_favorites(request, object_id, content_type):
     """Checks if it is in favorites."""
