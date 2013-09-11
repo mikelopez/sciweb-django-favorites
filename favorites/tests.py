@@ -40,8 +40,17 @@ class FavoritesTest(TestCase):
         client.login(username=self.user.username, password='test123')
         response = client.get(reverse('in_favs', kwargs={'content_type': ctype,
                                                          'object_id': favitem.pk}))
-        termprint("INFO", response)
         self.assertFalse(response.get('in_favorites'))
+        # add in a favorite
+        fav = Favorites.objects.add_favorite(self.user, favitem)
+        fav_len = len(Favorites.objects.all())
+        # check again - should return true
+        response = client.get(reverse('in_favs', kwargs={'content_type': ctype,
+                                                         'object_id': favitem.pk}))
+        self.assertTrue(response.get('in_favorites'))
+
+        termprint("INFO", response)
+        
 
 
     def test_add_get_favorite(self):
