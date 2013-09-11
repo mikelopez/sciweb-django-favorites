@@ -1,12 +1,21 @@
-import sys
-import unittest
-from unittest import TestCase, TestSuite, TextTestRunner
-from decimal import Decimal
+import os, sys
+from django.conf import settings
 
-sys.path.append('favorites')
-#sys.path.append('favorites/tests')
+settings.configure(DEBUG=True,
+               DATABASES={
+                    'default': {
+                        'ENGINE': 'django.db.backends.sqlite3',
+                    }
+                },
+               ROOT_URLCONF='myapp.urls',
+               INSTALLED_APPS=('django.contrib.auth',
+                              'django.contrib.contenttypes',
+                              'django.contrib.sessions',
+                              'django.contrib.admin',
+                              'favorites',))
 
-from tests import FavoritesTest
-
-if __name__ == '__main__':
-    unittest.main()
+from django.test.simple import DjangoTestSuiteRunner
+test_runner = DjangoTestSuiteRunner(verbosity=1)
+failures = test_runner.run_tests(['favorites', ])
+if failures:
+    sys.exit(failures)
