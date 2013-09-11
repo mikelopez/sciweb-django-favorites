@@ -55,5 +55,27 @@ class FavoritesTest(TestCase):
         self.assertTrue(my_favorites(self.user))
 
 
+    def test_remove_get_favorite(self):
+        """
+        test adding a favorite for the user on FavoriteItem
+        no duplicates for favorites!
+        """
+        favitem = FavoriteItem(name='Product 1')
+        favitem.save()
+        self.assertFalse(Favorites.objects.get_favorite(self.user, favitem))
+
+        fav = Favorites.objects.add_favorite(self.user, favitem)
+        fav_len = len(Favorites.objects.all())
+        self.assertTrue(fav_len == 1)
+
+        # delete it
+        fav_del = Favorites.objects.delete_favorite(self.user, favitem)
+
+        fav_len = len(Favorites.objects.all())
+        self.assertTrue(fav_len == 0)
+
+        termprint("INFO", my_favorites(self.user))
+        self.assertTrue(my_favorites(self.user))
+
 
 
