@@ -1,8 +1,8 @@
 Simple favorites system for django
 -----------------------------------
 
-.. image:: https://secure.travis-ci.org/mikelopez/sciweb-django-master.png?branch=master
-    :target: http://travis-ci.org/mikelopez/sciweb-django-master
+.. image:: https://secure.travis-ci.org/mikelopez/sciweb-django-favorites.png?branch=master
+    :target: http://travis-ci.org/mikelopez/sciweb-django-favorites
 
 
 - Add ``url(r'^favorites/', include('favorites.urls')),`` to your project urls (see demo project)
